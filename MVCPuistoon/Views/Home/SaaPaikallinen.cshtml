@@ -54,7 +54,7 @@
 
         const KELVIN = 273;
 
-        const key = "b5c504a6f4c718d8da73efed4df40dd9";
+        const key = "";
 
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(setPosition, showError);
@@ -82,7 +82,7 @@
 
         function getWeather(latitude, longitude) {
 
-            let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=fi`;
+            let api = ``;
 
             //console.log(api);
 
