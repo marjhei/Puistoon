@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "SaaHelsinki";
+}
+<!-- HTML CODE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Helsingin sää</title>
+</head>
+<body>
+    <div class="container">
+        <div class="app-title">
+            <p>Helsingin sää</p>
+        </div>        <div class="weather-container">
+            <div class="weather-icon">
+                <img src="~/icons/white.png" />
+            </div>
+            <div class="temperature-value">
+                <p>- °<span>C</span></p>
+            </div>            <div class="temperature-description">
+                <p>-</p>
+            </div>
+            <div class="location">
+                <p>-</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const iconElement = document.querySelector(".weather-icon");
+        const tempElement = document.querySelector(".temperature-value p");
+        const descElement = document.querySelector(".temperature-description p");
+        const locationElement = document.querySelector(".location p");
+        const weather = {};
+        weather.temperature = { unit: "celsius" }
+        const KELVIN = 273;
+        const key = "b5c504a6f4c718d8da73efed4df40dd9";
+        let latitude = 60.17;
+        let longitude = 24.94;
+        getWeather(latitude, longitude);
+
+        // get weather from api
+        function getWeather(latitude, longitude) {
+            let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&lang=fi`;
+            console.log(api);
+            fetch(api)
+                .then(function (response) {
+                    let data = response.json();
+                    return data;
+                })
+                .then(function (data) {
+                    weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+                    weather.description = data.weather[0].description;
+                    weather.iconId = data.weather[0].icon;
+                    weather.city = data.name;
+                    weather.country = data.sys.country;
+                })
+                .then(function () {
+                    displayWeather();
+                });
+        }        // display weather
+        function displayWeather() {
+            iconElement.innerHTML = `<img src="../icons/${weather.iconId}.png" alt="Helsinki"/>`;
+            tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+            descElement.innerHTML = weather.description;
+            locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+        }
+    </script>
+</body>
+</html>

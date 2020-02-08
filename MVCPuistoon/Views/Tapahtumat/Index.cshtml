@@ -1,0 +1,88 @@
+﻿@model IEnumerable<MVCPuistoon.Models.Tapahtumat>
+@{
+    ViewData["Title"] = "Lisää tapahtuma";
+}
+
+<h2>Lisää tapahtuma</h2>
+
+<p>
+   
+    @Html.ActionLink("Lisää tapahtuma", "Create")
+</p>
+
+<form asp-controller="Topics" asp-action="Index" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nimi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pvm)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Alkaa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loppuu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Kuvaus)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.LikeButton)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.PuistonId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KategorianId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KäyttäjänId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nimi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pvm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Alkaa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Loppuu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Kuvaus)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.LikeButton)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.PuistonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KategorianId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KäyttäjänId)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.TapahtumanId }) |
+                    @Html.ActionLink("Tiedot", "Details", new { id = item.TapahtumanId }) |
+                    @Html.ActionLink("Poista", "Delete", new { id = item.TapahtumanId })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</form>

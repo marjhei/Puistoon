@@ -1,0 +1,90 @@
+﻿@model MVCPuistoon.Models.Tapahtumat
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+
+<h4>Muokkaa tapahtumaa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="TapahtumanId" />
+            <div class="form-group">
+                <label asp-for="Nimi" class="control-label"></label>
+                <input asp-for="Nimi" class="form-control" />
+                <span asp-validation-for="Nimi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pvm" class="control-label"></label>
+                <input asp-for="Pvm" class="form-control" />
+                <span asp-validation-for="Pvm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Alkaa" class="control-label"></label>
+                <input asp-for="Alkaa" class="form-control" />
+                <span asp-validation-for="Alkaa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Loppuu" class="control-label"></label>
+                <input asp-for="Loppuu" class="form-control" />
+                <span asp-validation-for="Loppuu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kuvaus" class="control-label"></label>
+                <input asp-for="Kuvaus" class="form-control" />
+                <span asp-validation-for="Kuvaus" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="LikeButton" class="control-label"></label>
+                <input asp-for="LikeButton" class="form-control" />
+                <span asp-validation-for="LikeButton" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="PuistonId" class="control-label"></label>
+            <select asp-for="PuistonId" class="form-control" asp-items="ViewBag.PuistonId"></select>
+            <span asp-validation-for="PuistonId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="KategorianId" class="control-label"></label>
+            <select asp-for="KategorianId" class="form-control" asp-items="ViewBag.KategorianId"></select>
+            <span asp-validation-for="KategorianId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="KäyttäjänId" class="control-label"></label>
+            <select asp-for="KäyttäjänId" class="form-control" asp-items="ViewBag.KäyttäjänId"></select>
+            <span asp-validation-for="KäyttäjänId" class="text-danger"></span>
+        </div>*@
+
+            <div class="form-group">
+                <label asp-for="PuistonId" class="control-label"></label>
+                <input asp-for="PuistonId" class="form-control" />
+                <span asp-validation-for="PuistonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KäyttäjänId" class="control-label"></label>
+                <input asp-for="KäyttäjänId" class="form-control" />
+                <span asp-validation-for="KäyttäjänId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KategorianId" class="control-label"></label>
+                <input asp-for="KategorianId" class="form-control" />
+                <span asp-validation-for="KategorianId" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Tallenna" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Takaisin</a>
+</div>
+

@@ -1,0 +1,98 @@
+﻿@model MVCPuistoon.Models.Tapahtumat
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <h4>Luo uusi tapahtuma</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(x => x.Nimi, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.Nimi, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Nimi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Pvm, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.Pvm, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Pvm, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Alkaa, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.Alkaa, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Alkaa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Loppuu, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.Loppuu, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Loppuu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Kuvaus, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.Kuvaus, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Kuvaus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*<div class="form-group">
+            @Html.LabelFor(x => x.LikeButton, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.LikeButton, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.LikeButton, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        <div class="form-group">
+            @Html.LabelFor(x => x.PuistonId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+            @Html.TextBoxFor(x => x.PuistonId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.PuistonId, "", new { @class = "text-danger" })
+        </div>
+            @*<fieldset>
+                <legend>Valitse puiston id</legend>
+                <p>
+                    <label>Puistojen id:t</label>
+                    <select id="myList">
+                        <option value="1">1001</option>
+                        <option value="2">1002</option>
+                        <option value="3">1003</option>
+                        <option value="4">1004</option>
+                    </select>
+                </p>
+            </fieldset>*@
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.KategorianId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.KategorianId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.PuistonId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.KäyttäjänId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(x => x.KäyttäjänId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.KäyttäjänId, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Luo tapahtuma" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

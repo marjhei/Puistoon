@@ -1,0 +1,75 @@
+﻿@model MVCPuistoon.Models.Tapahtumat
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+<h3>Poistetaanko tapahtuma?</h3>
+<div>
+    <h4>Tapahtumat</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nimi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nimi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pvm)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pvm)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Alkaa)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Alkaa)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Loppuu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Loppuu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kuvaus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kuvaus)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LikeButton)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LikeButton)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kategorian)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kategorian.KategorianId)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Käyttäjän)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Käyttäjän.Sähköposti)
+        </dd class>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Puiston)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Puiston.PuistonId)
+        </dd class>*@
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="TapahtumanId" />
+        <input type="submit" value="Poista" class="btn btn-danger" /> |
+        <a asp-action="Index">Takaisin tapahtumalistaan</a>
+    </form>
+</div>

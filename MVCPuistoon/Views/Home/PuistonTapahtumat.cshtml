@@ -1,0 +1,171 @@
+﻿@model IEnumerable<MVCPuistoon.Models.Tapahtumat>
+@{
+    ViewData["Title"] = "Puistot Helsingissä";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div id="dvMap" style="width: auto; height: 480px">
+    </div>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBME-os13qOQwXYP5kq4YOagKOLB9iwe44"></script>
+    <script type="text/javascript">
+
+                
+        var merkit =  @Html.Raw(ViewBag.Merkit);   //alepat
+        var markers = @Html.Raw(ViewBag.Markers); //puistot
+        var vessat =  @Html.Raw(ViewBag.Vessat);
+        var pyorat =  @Html.Raw(ViewBag.pyorat);
+        var image = {
+                    url: 'https://image.flaticon.com/icons/png/512/135/135763.png', //alepa-image
+                   // url: '@Href("~/icons/cart.png")',
+                    scaledSize: new google.maps.Size(40, 40),
+                    // The origin for this image is (0, 0).
+                    origin: new google.maps.Point(0, 0),
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 32)
+            };
+        var vessakuva = {
+                    url: 'https://image.flaticon.com/icons/png/512/1973/1973260.png', // vessa-image
+                    // This marker is 20 pixels wide by 32 pixels high.
+                    scaledSize: new google.maps.Size(30, 30),
+                    // The origin for this image is (0, 0).
+                    origin: new google.maps.Point(0, 0),
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 32)
+        };
+        var pyorakuva = {
+                    url: 'https://image.flaticon.com/icons/png/512/2380/2380150.png', // pyorä-image
+                    // This marker is 20 pixels wide by 32 pixels high.
+                    scaledSize: new google.maps.Size(50, 50),
+                    // The origin for this image is (0, 0).
+                    origin: new google.maps.Point(0, 0),
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 32)
+        };
+       window.onload = function () {
+            var mapOptions = {
+                center: { lat: 60.174722, lng: 24.945833},
+                zoom: 12.5,
+                disableDefaultUI: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();                                  //puisto markerit
+           var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+           var icon = {
+             url: "https://image.flaticon.com/icons/png/512/433/433102.png", // url
+             scaledSize: new google.maps.Size(50, 50), // scaled size
+             origin: new google.maps.Point(0,0), // origin
+             anchor: new google.maps.Point(0, 32) // anchor
+           };
+
+
+
+           for (i = 0; i < markers.length; i++) {
+               var data = markers[i]
+               var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+               var marker = new google.maps.Marker({
+                   position: myLatlng,
+                   map: map,
+                   icon: icon,
+                   //size: new.google.maps.Size(25,30),
+                   title: data.nimi,
+                   puistoid: data.id
+               });
+               google.maps.event.addListener(marker, 'click', function (e) {       // klikkaa mitä tahansa puistoa ja hakee alepat
+                   for (i = 0; i < merkit.length; i++) {
+                       var data = merkit[i]
+                       var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                       var marker = new google.maps.Marker({
+                           position: myLatlng,
+                           icon: image,
+                           map: map,
+                           title: data.nimi
+                       });
+                   }
+                       marker.setMap(map);
+               });
+                google.maps.event.addListener(marker, 'click', function (e) {       // klikkaa mitä tahansa puistoa ja hakee vessat
+                   for (i = 0; i < vessat.length; i++) {
+                       var data = vessat[i]
+                       var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                       var marker = new google.maps.Marker({
+                           position: myLatlng,
+                           icon: vessakuva,
+                           map: map,
+                           title: data.nimi
+                       });
+                   }
+                       marker.setMap(map);
+                });
+
+
+
+                google.maps.event.addListener(marker, 'click', function (e) {       // klikkaa mitä tahansa puistoa ja hakee pyörät
+                   for (i = 0; i < pyorat.length; i++) {
+                       var data = pyorat[i]
+                       var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                       var marker = new google.maps.Marker({
+                           position: myLatlng,
+                           icon: pyorakuva,
+                           map: map,
+                           title: data.nimi
+                       });
+                   }
+                       marker.setMap(map);
+                   });
+              
+                (function (merkit, data) {
+                    google.maps.event.addListener(merkit, "mouseover", function (e) {     // näyttää palveluinfowindown
+                        infoWindow.setContent(data.kuvaus);
+                        infoWindow.open(map, merkit);
+                    });
+                })(marker, data);
+                marker.addListener('click', function() {            //  zoomaa klikattuun kohteeseen
+                    map.setZoom(16);
+                    map.setCenter(this.getPosition());
+                    map.setOptions({ draggable: false });
+                    map.setOptions({ gestureHandling: 'greedy' });
+                    this.puistoid;
+
+                    GoLocation(this.puistoid);
+                });
+               function GoLocation(id) {
+               var contentString = "<table>";
+
+                   console.log("GoLocation");
+                  $.get("/Home/GetTapahtuma/" + id , function (data, status) {
+                      console.dir(data);
+                      $.each(data, function (i, f) {
+                          let d = new Date(f.pvm);
+                          // seuraavia kahta ei käytetä (ainakaan vielä)
+                          d.setHours(f.alkaa.value.hours);
+                          d.setMinutes(f.alkaa.value.minutes);
+                          let t = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                          //contentString += "<tr><td> Info: " + f.nimi + " / " + f.pvm + " / " + f.kuvaus + " / " + "</td></tr>";
+                           contentString += "<tr><td> Info: " + f.nimi + " / alkaa: " + d.toLocaleDateString("fi-FI") + " kello: " + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + " / " + f.kuvaus + "</td></tr>";
+
+                            });
+                 contentString += "</table>";
+                console.log(contentString);
+                      infoWindow.setContent(contentString);
+                      infoWindow.open(map, this.marker, contentString);
+                      contentString = "";
+
+                  });
+               }
+           }
+        }
+
+
+    </script>
+    <button type="button" onclick="location.href='@Url.Action("PuistonTapahtumat", "Home")'" class="btn btn-light">Takaisin<i class="glyphicon glyphicon-search"></i></button>
+</body>
+</html>
+

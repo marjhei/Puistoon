@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    #map {
+        height: 500px;
+    }
+</style>
+<br />
+<br />
+<div>
+    <select class="form-control" id="selectedValue" onchange="GoLocation(this.value)">
+        <option>--Select--</option>
+        @foreach (var item in ViewBag.ListOfDropdown)
+        {
+            <option value="@item.PuistonId">@item.PuistonNimi</option>
+        }
+    </select>
+</div>
+<br />
+<div id="map"></div>
+
+<script>
+    var map;
+    function initMap(zoomeLevel, latDb, longDb) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: latDb != null ? latDb : 60.174722, lng: longDb != null ? longDb : 24.945833 },
+            zoom: zoomeLevel != null ? zoomeLevel : 6
+        });
+    }
+   
+    function GoLocation(locationId) {
+            $.get("/Puistot/GetAllLocationById?id=" + locationId, function (data, status) {
+           var iconName = data.Rating == 1 ? "~/wwwroot/Icons/one.png" : data.Rating == 2 ? "../Icons/two.png" : "../Icons/three.png";
+           initMap(data.Lat, data.Long);
+            marker = new google.maps.Marker({
+                position: { lat: data.Lat, lng: data.Long },
+                map: map,
+                setZoom: 10,
+                icon: "~/wwwroot/Icons/one.png"
+            });
+     
+            google.maps.event.addListener(marker, 'mouseover', (function (marker, i) {
+                return function () {
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+            google.maps.event.addListener(marker, 'mouseout', (function (marker, i) {
+                return function () {
+                    infowindow.close();
+                }
+            })(marker, i));
+        })
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBME-os13qOQwXYP5kq4YOagKOLB9iwe44&callback=initMap" async defer></script>
+
+
+
+
+
+

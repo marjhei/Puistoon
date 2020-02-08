@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div id="dvMap" style="width: 800px; height: 500px">
+    </div>
+   
+    <script type="text/javascript">
+        var currentMarker
+        var markers = @Html.Raw(ViewBag.Markers);
+       window.onload = function () {
+            var mapOptions = {
+                center: { lat: 60.174722, lng: 24.945833},
+                zoom: 12.5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+
+
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+            for (i = 0; i < markers.length; i++) {
+                var data = markers[i]
+                var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: data.nimi
+                });
+                (function (marker, data) {
+                    google.maps.event.addListener(marker, "click", function (e) {
+                        infoWindow.setContent(data.kuvaus);
+                        infoWindow.open(map, marker);
+                    });
+                })(marker, data);
+
+                marker.addListener('click', function() {
+                         map.setZoom(16);
+                    map.setCenter(this.getPosition());
+                    
+                    this.visible = false;  
+                    currentMarker = this;
+                });
+
+                google.maps.event.addListener(map, 'zoom_changed', function() {
+                    zoomLevel = map.getZoom();
+                   
+                    if (zoomLevel <= 15) {
+                        currentMarker.visible = true;
+                    }
+                });
+
+            }
+        }
+    </script>
+</body>
+</html>
+
