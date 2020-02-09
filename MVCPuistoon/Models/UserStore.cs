@@ -13,9 +13,7 @@ namespace MVCPuistoon.Models
     {
         public static DbConnection GetOpenConnection()
         {
-            var connection = new SqlConnection("server=localhost;" +
-                                       "database=Puistoon;" +
-                                       "trusted_connection=true;"); connection.Open(); return connection;
+            var connection = new SqlConnection(""); connection.Open(); return connection;
            
         }
         public async Task<IdentityResult> CreateAsync(Käyttäjä user, CancellationToken cancellationToken)
