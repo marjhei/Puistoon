@@ -32,7 +32,7 @@ namespace MVCPuistoon.Controllers
         {
             CultureInfo ci = new CultureInfo("en-US");
             string Markers = "[";
-            string conString = "server=localhost;database=Puistoon;trusted_connection=true";
+            string conString = "";
             SqlCommand cmd = new SqlCommand("SELECT * FROM Puistot");
             using (SqlConnection con = new SqlConnection(conString))
             {
@@ -61,7 +61,7 @@ namespace MVCPuistoon.Controllers
             ViewBag.Markers = Markers;
 
             string merkit = "[";
-            string conString2 = "server=localhost;database=Puistoon;trusted_connection=true";
+            string conString2 = "";
             SqlCommand cmd2 = new SqlCommand("SELECT * FROM Palvelut WHERE TyyppiID = 1");    // hakee alepat
             using (SqlConnection con = new SqlConnection(conString2))
             {
@@ -87,7 +87,7 @@ namespace MVCPuistoon.Controllers
             ViewBag.Merkit = merkit;
 
             string vessat = "[";
-            string conString3 = "server=localhost;database=Puistoon;trusted_connection=true";
+            string conString3 = "";
             SqlCommand cmd3 = new SqlCommand("SELECT * FROM Palvelut WHERE TyyppiID = 2");    // hakee vessat
             using (SqlConnection con = new SqlConnection(conString3))
             {
@@ -113,7 +113,7 @@ namespace MVCPuistoon.Controllers
             ViewBag.Vessat = vessat;
 
             string pyorat = "[";
-            string conString4 = "server=localhost;database=Puistoon;trusted_connection=true";
+            string conString4 = "";
             SqlCommand cmd4 = new SqlCommand("SELECT * FROM Palvelut WHERE TyyppiID = 3");    // hakee pyörät
             using (SqlConnection con = new SqlConnection(conString4))
             {
